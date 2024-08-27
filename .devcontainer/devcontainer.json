@@ -6,6 +6,14 @@
 	"image": "mcr.microsoft.com/devcontainers/javascript-node:1-22-bookworm",
 	"features": {
 		"ghcr.io/devcontainers/features/node:1": {}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"NomicFoundation.hardhat-solidity",
+				"JuanBlanco.solidity"
+			]
+		}
 	}
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
