@@ -4,8 +4,8 @@ import ImageUploader from './ImageUploader';
 
 function App() {
     return (
-        <div className="App">
-            <h1>IPFS Image Uploader</h1>
+        <div className="box">
+            <h1>Meta Blocker.</h1> 
             <ImageUploader />
         </div>
     );

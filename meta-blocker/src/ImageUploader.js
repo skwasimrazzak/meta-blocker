@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ethers } from 'ethers';
 import ImageStorage from './artifacts/contracts/ImageStorage.sol/ImageStorage.json';
@@ -71,7 +71,8 @@ const ImageUploader = () => {
             // Fetch the cleaned image URL
             // const cleanedImageUrl = await contract.getCleanedImage();  // Assuming your smart contract has this function
             const cleanedImageUrl = await contract.getImageHash();
-            setResultImageUrl(`https://gateway.pinata.cloud/ipfs/${cleanedImageUrl}`);
+            setResultImageUrl(`${cleanedImageUrl}`);
+            console.log(`https://gateway.pinata.cloud/ipfs/${cleanedImageUrl}`)
         } catch (error) {
             console.error('IPFS upload error:', error);
         }
@@ -90,20 +91,67 @@ const ImageUploader = () => {
         }
     };
 
-   
+    useEffect(() => {
+        const createRandomSparkle = () => {
+            const sparkle = document.createElement("div");
+            sparkle.classList.add("sparkle");
+
+            const randomX = Math.random() * window.innerWidth;
+            const randomY = Math.random() * window.innerHeight;
+
+            sparkle.style.left = `${randomX}px`;
+            sparkle.style.top = `${randomY}px`;
+
+            const randomXDirection = (Math.random() - 0.5) * 10;
+            const randomYDirection = (Math.random() - 0.5) * 10;
+
+            sparkle.style.setProperty("--randomXDirection", randomXDirection);
+            sparkle.style.setProperty("--randomYDirection", randomYDirection);
+
+            document.body.appendChild(sparkle);
+
+            sparkle.style.animation = `sparkleAnimation 10s linear`;
+            sparkle.style.animationDirection = randomXDirection > 0 ? "normal" : "reverse";
+
+            setTimeout(() => {
+                sparkle.remove();
+            }, 10000);
+        };
+
+        const sparkleInterval = setInterval(createRandomSparkle, 1000);
+
+        return () => clearInterval(sparkleInterval); // Cleanup on unmount
+    }, []);
 
     return (
-        <div>
+        <div class="mainDiv">
             <input type="file" onChange={handleFileChange} />
-            <button onClick={handleUpload}>Upload Image</button>
+        
+            {/* <button onClick={handleUpload}>Upload Image</button> */}
+            <button class="btn" onClick={handleUpload}>
+                <div class="bg-container">
+                     <div class="bg-circle"></div>
+                </div>
+                <div class="front">
+                    <span>Submit</span>
+                </div>
+            </button>
 
             {resultImageUrl && (
                 <div>
-                    <p>Image uploaded to IPFS:</p>
+                    <p>Processed Image:</p>
                     <a href={resultImageUrl} target="_blank" rel="noopener noreferrer">
-                        <img src={resultImageUrl} alt="Uploaded" href={resultImageUrl} />
+                        <img src={resultImageUrl} alt=".img" />
                     </a>
-                    <button onClick={() => handleDownload(resultImageUrl)}>Download Image</button>
+                    {/* <button onClick={() => handleDownload(resultImageUrl)}>Download Image</button> */}
+                    <button class="btn" onClick={() => handleDownload(resultImageUrl)}>
+                        <div class="bg-container">
+                            <div class="bg-circle"></div>
+                        </div>
+                        <div class="front">
+                             <span>Download</span>
+                        </div>
+                     </button>
                 </div>
             )}
         </div>
