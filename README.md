@@ -251,4 +251,9 @@ This project was built as a hackathon prototype. There is plenty of room to grow
 
 Please open an issue first for any significant changes so we can discuss the approach before you invest time building it.
 
-
+---
+ 
+## License
+ 
+MIT License. See [LICENSE](LICENSE) for details.
+ 
